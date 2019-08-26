@@ -63,15 +63,48 @@ if [ -z "\${which tree}" ]; then
   }
 fi
 
-mcd () {
-    # make a dir and cd into it
+# make a dir and cd into it
+mkcd () {  
     mkdir -p "$@" && cd "$@"
+}
+
+#copy and go to dir
+cpcd () {
+    if [ -d "$2" ];then
+        cp $1 $2 && cd $2
+    else
+        cp $1 $2
+    fi
+}
+
+#move and go to dir
+mvcd () {
+    if [ -d "$2" ];then
+        mv $1 $2 && cd $2
+    else
+        mv $1 $2
+    fi
 }
 
 portslay () {
     # If you need to kill a process on a particular port, but you don't know the process, portslay handles that.
     kill -9 `lsof -i tcp:$1 | tail -1 | awk '{ print $2;}'`
 }
+
+# Network utils
+
+#netinfo - shows network information for your system
+netinfo () {
+    echo "--------------- Network Information ---------------"
+    /sbin/ifconfig | awk /'inet addr/ {print $2}'
+    /sbin/ifconfig | awk /'Bcast/ {print $3}'
+    /sbin/ifconfig | awk /'inet addr/ {print $4}'
+    /sbin/ifconfig | awk /'HWaddr/ {print $4,$5}'
+    myip=`lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g' `
+    echo "${myip}"
+    echo "---------------------------------------------------"
+}
+
 
 exip () {
     # gather external ip address

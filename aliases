@@ -1,29 +1,44 @@
 # Filesystem
 alias ..='cd ..'            # Go up one directory
 alias ...='cd ../..'        # Go up two directories
-alias ....='cd ../../..'    # And for good measure
-alias ls='ls --color=auto'  # gimmie colors
-alias l='ls -lah --color=auto'   # Long view, show hidden
-alias la='ls -AF --color=auto'   # Compact view, show hidden
-alias ll='ls -lFh --color=auto'  # Long view, no hidden
+alias ....='cd ../../..'    # Go up 3 directories
+alias .....='cd ../../../..'# Go up 4 directories
+
+alias ls='ls --color=auto'          # gimmie colors
+alias l='ls -lah --color=auto'      # Long view, show hidden
+alias la='ls -AF --color=auto'      # Compact view, show hidden
+alias ll='ls -lF h --color=auto'    # Long view, no hidden
 alias lx='ls -lahX --color=auto'
 
+# system info
+alias psi='ps h -eo pmem,comm | sort -nr | head'
+alias cpuu="ps -e -o pcpu,cpu,nice,state,cputime,args --sort pcpu | sed '/^ 0.0 /d'"
+alias memu='ps -e -o rss=,args= | sort -b -k1,1n | pr -TW$COLUMNS'
+
 # Helpers
-alias grep='grep --color=auto' # Always highlight grep search term
-alias ping5='ping -c 5'      # Pings with 5 packets, not unlimited
-alias df='df -h'            # Disk free, in gigabytes, not bytes
-alias du='du -h -c'         # Calculate total disk usage for a folder
-#alias sgi='sudo gem install' # Install ruby stuff
-#alias be='bundle exec'       # shortcut for ruby environment activation
-#alias dc='docker-compose'    # invoke docker-compose, which takes too long to type.
-#alias clj='clj-env-dir'      # Clojure helper
+alias grep='grep --color=auto'      # Always highlight grep search term
+alias ping5='ping -c 5'             # Pings with 5 packets, not unlimited
+alias df='df -h'                    # Disk free, in gigabytes, not bytes
+alias du='du -h -c'                 # Calculate total disk usage for a folder
+
+#alias clj='clj-env-dir'            # Clojure helper
 alias clr='clear;echo "Currently logged in on $(tty), as $(whoami) in directory $(pwd)."'
 #alias tt='tt++ $HOME/.ttconf'
-alias svim="sudo vim" # Run vim as super user
-alias snano="sudo nano" #Run nano as super user
+
 #alias emc="emacsclient -n" # no blocking terminal waiting for edit
 
+#Ruby
+#alias sgi='sudo gem install' # Install ruby stuff
+#alias be='bundle exec'             # shortcut for ruby environment activation
+
+# Docker
+#alias dc='docker-compose'    # invoke docker-compose, which takes too long to type.
+
+# Tweak vim
+alias svim="sudo vim" # Run vim as super user
+
 # Tweak nano editor
+alias snano="sudo nano" #Run nano as super user
 alias nano="nano --smooth --linenumbers --morespace"
 
 # Nifty extras

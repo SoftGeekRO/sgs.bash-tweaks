@@ -1,3 +1,17 @@
+RED="\[\033[0;31m\]"
+PINK="\[\033[1;31m\]"
+YELLOW="\[\033[1;33m\]"
+GREEN="\[\033[0;32m\]"
+LT_GREEN="\[\033[1;32m\]"
+BLUE="\[\033[0;34m\]"
+WHITE="\[\033[1;37m\]"
+PURPLE="\[\033[1;35m\]"
+CYAN="\[\033[1;36m\]"
+BROWN="\[\033[0;33m\]"
+COLOR_NONE="\[\033[0m\]"
+
+export EDITOR="NANO"
+
 #export PATH=$HOME/.local/bin:$HOME/.rbenv/bin:$HOME/bin:$HOME/.gem/ruby/1.8/bin:/usr/local/git/bin:/Applications/Emacs.app/Contents/MacOS/bin:/usr/share/source-highlight:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/Applications/Postgres.app/Contents/Versions/9.4/bin:/usr/games/:/usr/lib/go-1.6/bin
 #export GDAL_DATA=/opt/local/share
 #export MANPATH=/opt/local/share/man:$MANPATH
@@ -50,16 +64,3 @@ export HISTFILE=~/.histfile
 export HISTSIZE=10000         # Increases size of history
 export SAVEHIST=10000
 export HISTIGNORE="&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g:history"
-
-RED="\[\033[0;31m\]"
-PINK="\[\033[1;31m\]"
-YELLOW="\[\033[1;33m\]"
-GREEN="\[\033[0;32m\]"
-LT_GREEN="\[\033[1;32m\]"
-BLUE="\[\033[0;34m\]"
-WHITE="\[\033[1;37m\]"
-PURPLE="\[\033[1;35m\]"
-CYAN="\[\033[1;36m\]"
-BROWN="\[\033[0;33m\]"
-COLOR_NONE="\[\033[0m\]"
-

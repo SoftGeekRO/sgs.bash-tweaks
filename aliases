@@ -1,8 +1,8 @@
 # Filesystem
-alias ..='cd ..'            # Go up one directory
-alias ...='cd ../..'        # Go up two directories
-alias ....='cd ../../..'    # Go up 3 directories
-alias .....='cd ../../../..'# Go up 4 directories
+alias ..='cd ..'                # Go up one directory
+alias ...='cd ../..'            # Go up two directories
+alias ....='cd ../../..'        # Go up 3 directories
+alias .....='cd ../../../..'    # Go up 4 directories
 
 alias ls='ls --color=auto'          # gimmie colors
 alias l='ls -lah --color=auto'      # Long view, show hidden

@@ -1,0 +1,25 @@
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
+if [ -f /etc/profile.d/bash_completion.sh ]; then
+    source /etc/profile.d/bash_completion.sh
+fi
+
+if [ -d ~/{{bash_tweaks_dir}} ]; then
+    . ~/{{bash_tweaks_dir}}/aliases
+    . ~/{{bash_tweaks_dir}}/functions
+    . ~/{{bash_tweaks_dir}}/variabiles
+fi
+
+if [ -x /usr/bin/virtualenv ]; then
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+    export WORKON_HOME=$HOME/.virtualenvs
+    export PROJECT_HOME=/opt/pyProjects
+    export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
+    source /usr/bin/virtualenvwrapper_lazy.sh
+fi

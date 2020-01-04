@@ -10,10 +10,10 @@ if [ -f /etc/profile.d/bash_completion.sh ]; then
     source /etc/profile.d/bash_completion.sh
 fi
 
-if [ -d ~/{{pg.bash-toys}} ]; then
-    . ~/{{pg.bash-toys}}/aliases
-    . ~/{{pg.bash-toys}}/functions
-    . ~/{{pg.bash-toys}}/variabiles
+if [ -d ~/pg.bash-toys ]; then
+    . ~/pg.bash-toys/aliases
+    . ~/pg.bash-toys/functions
+    . ~/pg.bash-toys/variabiles
 fi
 
 if [ -x /usr/bin/virtualenv ]; then

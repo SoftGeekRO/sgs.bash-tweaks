@@ -10,7 +10,7 @@ CYAN="\[\033[1;36m\]"
 BROWN="\[\033[0;33m\]"
 COLOR_NONE="\[\033[0m\]"
 
-export EDITOR="NANO"
+export EDITOR="$(which nano)"
 
 #export PATH=$HOME/.local/bin:$HOME/.rbenv/bin:$HOME/bin:$HOME/.gem/ruby/1.8/bin:/usr/local/git/bin:/Applications/Emacs.app/Contents/MacOS/bin:/usr/share/source-highlight:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/Applications/Postgres.app/Contents/Versions/9.4/bin:/usr/games/:/usr/lib/go-1.6/bin
 #export GDAL_DATA=/opt/local/share
@@ -27,16 +27,16 @@ export DEV_PATH_DB=$DEV_PATH/dbs
 export DEV_PATH_DB_DATA=$DEV_PATH_DB/data
 
 # Ansible configs
-export ANSIBLE_CONFIG=${DEV_PATH}/automationTool/ansible/ansible.cfg
+#export ANSIBLE_CONFIG=${DEV_PATH}/automationTool/ansible/ansible.cfg
 
 #export MONGODB_PATH_BIN=$DEV_PATH_DB/mongodb/bin
 #export MONGO_PATH_DATA=$DEV_PATH_DB_DATA/mongodb_data
 #export MONGO_PATH_LOG=$DEV_PATH_LOG/mongodb
 
-export NODEJS_BIN_PATH=$DEV_PATH/server/nodejs/nodejs_latest
+#export NODEJS_BIN_PATH=$DEV_PATH/server/nodejs/nodejs_latest
 
 #EXPORT NODEJS TO PATH
-export PATH=$NODEJS_BIN_PATH/bin:$PATH
+#export PATH=$NODEJS_BIN_PATH/bin:$PATH
 
 export GREP_COLOR='1;31'
 export LESS="-R"
@@ -54,8 +54,8 @@ export LESS_TERMCAP_us=$'\E[01;37m'
 #export BROWSER=google-chrome
 
 # EXPORT GO LANG PATH
-export GOROOT=/mnt/pool/DevSpace/go/go1.9
-export PATH=$GOROOT/bin/:$PATH
+#export GOROOT=/mnt/pool/DevSpace/go/go1.9
+#export PATH=$GOROOT/bin/:$PATH
 
 # bash history settings
 export HISTTIMEFORMAT="%m-%d-%Y %H:%M:%S "

@@ -17,9 +17,9 @@ export INFOPATH=$INFOPATH:/usr/share/info
 
 if [ -d /opt/pg.zone ]; then
     export PG_ZONE=/opt/pg.zone
-    export PG_ZONE_LOG=$DEV_PATH/logs
-    export PG_ZONE_DB=$DEV_PATH/dbs
-    export PG_ZONE_DB_DATA=$DEV_PATH_DB/data
+    export PG_ZONE_LOG=${PG_ZONE}/logs
+    export PG_ZONE_DB=${PG_ZONE}/dbs
+    export PG_ZONE_DB_DATA=${PG_ZONE}/data
 fi
 
 # EXPORT GO LANG PATH
@@ -29,7 +29,7 @@ if [ -d ${PG_ZONE}/go ]; then
 fi
 
 # EXPORT MONGODB
-if [ -d ${$PG_ZONE_DB}/mongodb ]; then
+if [ -d ${PG_ZONE_DB}/mongodb ]; then
     export MONGODB_PATH_BIN=${PG_ZONE_DB}/mongodb/bin
     export MONGO_PATH_DATA=${PG_ZONE_DB_DATA}/mongodb_data
     export MONGO_PATH_LOG=${PG_ZONE_LOG}/mongodb

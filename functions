@@ -56,13 +56,6 @@ killit() {
     ps aux | grep -v "grep" | grep "$@" | awk '{print $2}' | xargs sudo kill
 }
 
-if [ -z "\${which tree}" ]; then
-  tree () {
-      # If this computer doesn't have an implementation of tree, then let's make a simple one with find and sed. Tree basically outputs a directory layout in a tree form.
-      find $@ -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-  }
-fi
-
 # make a dir and cd into it
 mkcd () {  
     mkdir -p "$@" && cd "$@"

@@ -13,30 +13,33 @@ COLOR_NONE="\[\033[0m\]"
 export EDITOR="$(which nano)"
 
 #export PATH=$HOME/.local/bin:$HOME/.rbenv/bin:$HOME/bin:$HOME/.gem/ruby/1.8/bin:/usr/local/git/bin:/Applications/Emacs.app/Contents/MacOS/bin:/usr/share/source-highlight:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/Applications/Postgres.app/Contents/Versions/9.4/bin:/usr/games/:/usr/lib/go-1.6/bin
-#export GDAL_DATA=/opt/local/share
-#export MANPATH=/opt/local/share/man:$MANPATH
-#export CLOJURE_EXT=$HOME/.clojure
-#export P4CONFIG=$HOME/.p4config
-#export P4EDITOR=$EDITOR
-#export WORKON_HOME=$HOME/.virtualenvs
-#export INFOPATH=$INFOPATH:/usr/share/info
+export INFOPATH=$INFOPATH:/usr/share/info
 
-export DEV_PATH=/mnt/pool/DevSpace
-export DEV_PATH_LOG=$DEV_PATH/logs
-export DEV_PATH_DB=$DEV_PATH/dbs
-export DEV_PATH_DB_DATA=$DEV_PATH_DB/data
+if [ -d /opt/pg.zone ]; then
+    export PG_ZONE=/opt/pg.zone
+    export PG_ZONE_LOG=$DEV_PATH/logs
+    export PG_ZONE_DB=$DEV_PATH/dbs
+    export PG_ZONE_DB_DATA=$DEV_PATH_DB/data
+fi
 
-# Ansible configs
-#export ANSIBLE_CONFIG=${DEV_PATH}/automationTool/ansible/ansible.cfg
+# EXPORT GO LANG PATH
+if [ -d ${PG_ZONE}/go ]; then
+    export GOROOT=${PG_ZONE}/go1.9
+    export PATH=${GOROOT}/bin:$PATH
+fi
 
-#export MONGODB_PATH_BIN=$DEV_PATH_DB/mongodb/bin
-#export MONGO_PATH_DATA=$DEV_PATH_DB_DATA/mongodb_data
-#export MONGO_PATH_LOG=$DEV_PATH_LOG/mongodb
+# EXPORT MONGODB
+if [ -d ${$PG_ZONE_DB}/mongodb ]; then
+    export MONGODB_PATH_BIN=${PG_ZONE_DB}/mongodb/bin
+    export MONGO_PATH_DATA=${PG_ZONE_DB_DATA}/mongodb_data
+    export MONGO_PATH_LOG=${PG_ZONE_LOG}/mongodb
+    export PATH=${MONGODB_PATH_BIN}:$PATH
+fi
 
-#export NODEJS_BIN_PATH=$DEV_PATH/server/nodejs/nodejs_latest
-
-#EXPORT NODEJS TO PATH
-#export PATH=$NODEJS_BIN_PATH/bin:$PATH
+# EXPORT NODEJS TO PATH
+if [ -d ${PG_ZONE}/langs/nodejs ]
+    export PATH=${NODEJS_BIN_PATH}:$PATH
+fi
 
 export GREP_COLOR='1;31'
 export LESS="-R"
@@ -49,13 +52,6 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;37m'
-#export EDITOR='emacsclient'
-#export OOO_FORCE_DESKTOP=gnome # For OpenOffice to look more gtk-friendly.
-#export BROWSER=google-chrome
-
-# EXPORT GO LANG PATH
-#export GOROOT=/mnt/pool/DevSpace/go/go1.9
-#export PATH=$GOROOT/bin/:$PATH
 
 # bash history settings
 export HISTTIMEFORMAT="%m-%d-%Y %H:%M:%S "

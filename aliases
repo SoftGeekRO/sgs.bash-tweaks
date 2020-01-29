@@ -10,6 +10,8 @@ alias la='ls -AF --color=auto'      # Compact view, show hidden
 alias ll='ls -lF h --color=auto'    # Long view, no hidden
 alias lx='ls -lahX --color=auto'
 
+alias tree='tree -a -f -C -p'          # display directory in tree format using -a all files, -f full path, Turn colorization on always, -p Print the protections for each file
+
 # system info
 alias psi='ps h -eo pmem,comm | sort -nr | head'
 alias cpuu="ps -e -o pcpu,cpu,nice,state,cputime,args --sort pcpu | sed '/^ 0.0 /d'"

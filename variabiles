@@ -38,7 +38,7 @@ fi
 
 # EXPORT NODEJS TO PATH
 if [ -d ${PG_ZONE}/langs/nodejs ]
-    export PATH=${NODEJS_BIN_PATH}:$PATH
+    export PATH=${PG_ZONE}/langs/nodejs:$PATH
 fi
 
 export GREP_COLOR='1;31'

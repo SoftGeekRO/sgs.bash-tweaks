@@ -19,7 +19,7 @@ fi
 if [ -x /usr/bin/virtualenv ]; then
     export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
     export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
-    export WORKON_HOME=$HOME/.virtualenvs
+    export WORKON_HOME=${PG_ZONE}/virtualenvs
     export PROJECT_HOME=${PG_ZONE}/apps
     export VIRTUALENVWRAPPER_SCRIPT=/usr/share/virtualenvwrapper/virtualenvwrapper.sh
     source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh

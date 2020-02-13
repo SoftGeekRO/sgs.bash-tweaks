@@ -14,7 +14,7 @@ if [ -d ~/pg.bash-toys ]; then
     . ~/pg.bash-toys/aliases
     . ~/pg.bash-toys/variabiles
     . ~/pg.bash-toys/functions
-    . ~/pg.bash-toys/pyColorPrompt
+    . ~/pg.bash-toys/fancyPrompt
 fi
 
 # Tell bash to execute this function just before displaying its prompt.

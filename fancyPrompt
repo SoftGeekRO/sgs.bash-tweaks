@@ -1,3 +1,4 @@
+
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
@@ -50,16 +51,16 @@ function set_git_branch {
 
   # Set the final branch string.
 #  echo "bran ${branch}"
-  BRANCH="${state}(${branch})${remote}${COLOR_NONE} "
+  BRANCH=":${bldgrn}${state}(${branch})${remote}${COLOR_NONE}"
 }
 
 # Return the prompt symbol to use, colorized based on the return value of the
 # previous command.
 function set_prompt_symbol () {
   if test $1 -eq 0 ; then
-      PROMPT_SYMBOL="${GREEN}<\$>${COLOR_NONE}"
+      PROMPT_SYMBOL="${GREEN}\\\$${COLOR_NONE} "
   else
-      PROMPT_SYMBOL="${LIGHT_RED}<\$>${COLOR_NONE}"
+      PROMPT_SYMBOL="${LIGHT_RED}\\\$${COLOR_NONE} "
   fi
 }
 
@@ -74,21 +75,32 @@ function set_virtualenv () {
 
 # Set the full bash prompt.
 function set_bash_prompt () {
+  local last_command=$? # Must come first!
   # Set the PROMPT_SYMBOL variable. We do this first so we don't lose the
   # return value of the last command.
   set_prompt_symbol $?
-  
+
+  PS1=""  
   # Set the PYTHON_VIRTUALENV variable.
   set_virtualenv
 
-      # Set the BRANCH variable.
+    # Set the BRANCH variable.
 	  if is_git_repository ; then
-	#    echo "is git repo"
 	    set_git_branch	 
 	  else
 	    BRANCH=''
 	  fi
-    
-    SHOW_FACE="\`if [ \$? = 0 ]; then echo \[\e[33m\]^_^\[\e[0m\]; else echo \[\e[31m\]O_O\[\e[0m\]; fi\`"
-    PS1="\n${PYTHON_VIRTUALENV}${GREEN}${txtred}\u@\h:${bldcyn}[\w]:${bldgrn}${BRANCH}\n${SHOW_FACE}..${PROMPT_SYMBOL} "
+
+    if [[ $last_command == 0 ]]; then
+        PS1+="$GREEN$CHECKMARK "
+    else
+        PS1+="$RED$FANCYX "
+    fi
+    if [[ $EUID == 0 ]]; then
+        USER_COLOR="$RED\\u@\\h"
+    else
+        USER_COLOR="$GREEN\\u@\\h"
+    fi
+
+    PS1+="${USER_COLOR}${PYTHON_VIRTUALENV}${GREEN}${txtred}:${COLOR_NONE}\w${BRANCH}${PROMPT_SYMBOL}"
 }

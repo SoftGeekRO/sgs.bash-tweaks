@@ -133,27 +133,46 @@ docker_rmi_tag() {
 # Python Virtual ENV
 ####
 # determine git branch name
-function parse_git_branch(){
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-# determine mercurial branch name
-function parse_hg_branch(){
-  hg branch 2> /dev/null | awk '{print " (" $1 ")"}'
+# Detect whether the current directory is a git repository.
+function is_git_repository {
+  git branch > /dev/null 2>&1
 }
 
 # Determine the branch/state information for this git repository.
-function set_git_branch() {
-  # Get the name of the branch.
-  branch=$(parse_git_branch)
-  # if not git then maybe mercurial
-  if [ "$branch" == "" ]
-  then
-    branch=$(parse_hg_branch)
+function set_git_branch {
+  # Capture the output of the "git status" command.
+  git_status="$(git status 2> /dev/null)"
+
+  # Set color based on clean/staged/dirty.
+  if [[ ${git_status} =~ "working directory clean" ]]; then
+    state="${GREEN}"
+  elif [[ ${git_status} =~ "Changes to be committed" ]]; then
+    state="${YELLOW}"
+  else
+    state="${LIGHT_RED}"
   fi
 
+  # Set arrow icon based on status against remote.
+  remote_pattern="# Your branch is (ahead|behind)+ "
+  if [[ ${git_status} =~ ${remote_pattern} ]]; then
+    if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
+      remote="↑"
+    else
+      remote="↓"
+    fi
+  else
+    remote=""
+  fi
+  diverge_pattern="# Your branch and (.*) have diverged"
+  if [[ ${git_status} =~ ${diverge_pattern} ]]; then
+    remote="↕"
+  fi
+
+  # Get the name of the branch.
+  branch="$(git rev-parse --abbrev-ref HEAD)"
+
   # Set the final branch string.
-  BRANCH="${PURPLE}${branch}${COLOR_NONE} "
+  BRANCH="${state}(${branch})${remote}${COLOR_NONE} "
 }
 
 # Return the prompt symbol to use, colorized based on the return value of the
@@ -168,10 +187,10 @@ function set_prompt_symbol () {
 
 # Determine active Python virtualenv details.
 function set_virtualenv () {
-  if test -z "$VIRTUAL_ENV" ; then
+  if [[ `pyenv version-name` == "system" ]] ; then
       PYTHON_VIRTUALENV=""
   else
-      PYTHON_VIRTUALENV="${BLUE}[`basename \"$VIRTUAL_ENV\"`]${COLOR_NONE} "
+      PYTHON_VIRTUALENV="${BLUE}[`pyenv version-name`]${COLOR_NONE} "
   fi
 }
 
@@ -185,10 +204,14 @@ function set_bash_prompt () {
   set_virtualenv
 
   # Set the BRANCH variable.
-  set_git_branch
+  if is_git_repository ; then
+    set_git_branch
+  else
+    BRANCH=''
+  fi
 
   # Set the bash prompt variable.
   PS1="
-${PYTHON_VIRTUALENV}${GREEN}\u@\h${COLOR_NONE}:${YELLOW}\w${COLOR_NONE}${BRANCH}
+${PYTHON_VIRTUALENV}${GREEN}\u@\h ${YELLOW}\w${COLOR_NONE} ${BRANCH}
 ${PROMPT_SYMBOL} "
 }

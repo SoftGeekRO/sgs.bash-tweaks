@@ -16,7 +16,7 @@ if [ -d ~/pg.bash-toys ]; then
     . ~/pg.bash-toys/variabiles
 fi
 
-if [ -x /usr/bin/virtualenv ]; then
+if [ -x "$(which virtualenv)" ]; then
     export VIRTUALENVWRAPPER_PYTHON=$(which python3)
     export VIRTUALENVWRAPPER_VIRTUALENV=$(which virtualenv)
     export WORKON_HOME=${PG_ZONE}/virtualenvs

@@ -69,7 +69,7 @@ function set_virtualenv () {
   if test -z "$VIRTUAL_ENV" ; then
       PYTHON_VIRTUALENV=""
   else
-      PYTHON_VIRTUALENV="${BLUE}[`basename \"$VIRTUAL_ENV\"`]${COLOR_NONE} "
+      PYTHON_VIRTUALENV=":${BLUE}[`basename \"$VIRTUAL_ENV\"`]${COLOR_NONE}"
   fi
 }
 
@@ -102,5 +102,5 @@ function set_bash_prompt () {
         USER_COLOR="$GREEN\\u@\\h"
     fi
 
-    PS1+="${USER_COLOR}${PYTHON_VIRTUALENV}${GREEN}${txtred}:${COLOR_NONE}\w${BRANCH}${PROMPT_SYMBOL}"
+    PS1+="${USER_COLOR}${PYTHON_VIRTUALENV}:${COLOR_NONE}\w${BRANCH}${PROMPT_SYMBOL}"
 }

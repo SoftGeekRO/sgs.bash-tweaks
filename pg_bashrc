@@ -23,7 +23,7 @@ PROMPT_COMMAND=set_bash_prompt
 if [ -x "$(which virtualenv)" ]; then
     export VIRTUALENVWRAPPER_PYTHON=$(which python)
     export VIRTUALENVWRAPPER_VIRTUALENV=$(which virtualenv)
-    export WORKON_HOME=${PG_ZONE}/virtualenvs
+    export WORKON_HOME=${PG_ZONE}/.virtualenvs
     export PROJECT_HOME=${PG_ZONE}/apps
     export VIRTUALENVWRAPPER_SCRIPT=/usr/share/virtualenvwrapper/virtualenvwrapper.sh
     source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh

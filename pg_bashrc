@@ -12,8 +12,8 @@ fi
 
 if [ -d ~/pg.bash-toys ]; then
     . ~/pg.bash-toys/aliases
-    . ~/pg.bash-toys/functions
     . ~/pg.bash-toys/variabiles
+    . ~/pg.bash-toys/functions
 fi
 
 if [ -x "$(which virtualenv)" ]; then

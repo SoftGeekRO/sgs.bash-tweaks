@@ -1,3 +1,4 @@
 .vscode/
 .git/
+.idea/
 *.code-workspace

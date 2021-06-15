@@ -76,6 +76,7 @@ function set_virtualenv () {
 # Set the full bash prompt.
 function set_bash_prompt () {
   local last_command=$? # Must come first!
+  
   # Set the PROMPT_SYMBOL variable. We do this first so we don't lose the
   # return value of the last command.
   set_prompt_symbol $?

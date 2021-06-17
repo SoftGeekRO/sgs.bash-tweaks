@@ -1,31 +1,33 @@
+#!/bin/bash
 
+# Determine git branch name
 parse_git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+  git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 # Detect whether the current directory is a git repository.
-function is_git_repository {
-  git branch > /dev/null 2>&1
+function is_git_repository() {
+  git branch >/dev/null 2>&1
 }
 
 # Determine the branch/state information for this git repository.
-function set_git_branch {
+function set_git_branch() {
   # Capture the output of the "git status" command.
-  git_status="$(git status 2> /dev/null)"
+  git_status="$(git status 2>/dev/null)"
 
   # Set color based on clean/staged/dirty.
   if [[ ${git_status} =~ "working directory clean" ]]; then
-    state="${bldgrn}"
+    state="${BGreen}"
   elif [[ ${git_status} =~ "Changes to be committed" ]]; then
-    state="${bldylw}"
+    state="${BYellow}"
   else
-    state="${LIGHT_RED}"
+    state="${Red}"
   fi
 
   # Set arrow icon based on status against remote.
   remote_pattern="Your branch is (.*) (of|by|with)"
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
-#    echo "ofof = ${BASH_REMATCH[1]}"
+    #    echo "ofof = ${BASH_REMATCH[1]}"
     if [[ ${BASH_REMATCH[1]} == ahead* ]]; then
       remote="↑"
     elif [[ ${BASH_REMATCH[1]} == behind* ]]; then
@@ -50,58 +52,58 @@ function set_git_branch {
   branch="$(git rev-parse --abbrev-ref HEAD)" # replace all 4 lines with this.
 
   # Set the final branch string.
-#  echo "bran ${branch}"
-  BRANCH=":${bldgrn}${state}(${branch})${remote}${COLOR_NONE}"
+  #  echo "bran ${branch}"
+  BRANCH=":${LGreen}${state}(${branch})${remote}${Color_Off}"
 }
 
 # Return the prompt symbol to use, colorized based on the return value of the
 # previous command.
-function set_prompt_symbol () {
-  if test $1 -eq 0 ; then
-      PROMPT_SYMBOL="${GREEN}\\\$${COLOR_NONE} "
+function set_prompt_symbol() {
+  if test $1 -eq 0; then
+    PROMPT_SYMBOL="${Green}\\\$${Color_Off} "
   else
-      PROMPT_SYMBOL="${LIGHT_RED}\\\$${COLOR_NONE} "
+    PROMPT_SYMBOL="${Red}\\\$${Color_Off} "
   fi
 }
 
 # Determine active Python virtualenv details.
-function set_virtualenv () {
-  if test -z "$VIRTUAL_ENV" ; then
-      PYTHON_VIRTUALENV=""
+function set_virtualenv() {
+  if test -z "$VIRTUAL_ENV"; then
+    PYTHON_VIRTUALENV=""
   else
-      PYTHON_VIRTUALENV=":${BLUE}[`basename \"$VIRTUAL_ENV\"`]${COLOR_NONE}"
+    PYTHON_VIRTUALENV=":${LBlue}[$(basename \"$VIRTUAL_ENV\")]${Color_Off}"
   fi
 }
 
 # Set the full bash prompt.
-function set_bash_prompt () {
+function set_bash_prompt() {
   local last_command=$? # Must come first!
-  
+
   # Set the PROMPT_SYMBOL variable. We do this first so we don't lose the
   # return value of the last command.
   set_prompt_symbol $?
 
-  PS1=""  
+  PS1=""
   # Set the PYTHON_VIRTUALENV variable.
   set_virtualenv
 
-    # Set the BRANCH variable.
-	  if is_git_repository ; then
-	    set_git_branch	 
-	  else
-	    BRANCH=''
-	  fi
+  # Set the BRANCH variable.
+  if is_git_repository; then
+    set_git_branch
+  else
+    BRANCH=''
+  fi
 
-    if [[ $last_command == 0 ]]; then
-        PS1+="$GREEN$CHECKMARK "
-    else
-        PS1+="$RED$FANCYX "
-    fi
-    if [[ $EUID == 0 ]]; then
-        USER_COLOR="$RED\\u@\\h"
-    else
-        USER_COLOR="$GREEN\\u@\\h"
-    fi
+  if [[ $last_command == 0 ]]; then
+    PS1+="${Green}${CHECKMARK} "
+  else
+    PS1+="${Red}${FANCYX} "
+  fi
+  if [[ $EUID == 0 ]]; then
+    USER_COLOR="${Red}\\u@\\h${Color_Off}"
+  else
+    USER_COLOR="${Green}\\u@\\h${Color_Off}"
+  fi
 
-    PS1+="${USER_COLOR}${PYTHON_VIRTUALENV}:${COLOR_NONE}\w${BRANCH}${PROMPT_SYMBOL}"
+  PS1+="${PYTHON_VIRTUALENV}${USER_COLOR}:\w${BRANCH} ${PROMPT_SYMBOL}"
 }

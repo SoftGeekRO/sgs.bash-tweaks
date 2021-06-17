@@ -11,9 +11,9 @@ PWD="$(dirname "$(readlink -f "$0")")"
 BASENAME=$(basename "$0")
 USAGE="Usage: $BASENAME {install | uninstall | reinstall}"
 
-INSTALL_DIR=$HOME/.bashelicious
-DIRECTORIES="lib plugins"
-BASHRC_LINE="[[ -f $INSTALL_DIR/bashelicious ]] && . $INSTALL_DIR/bashelicious"
+INSTALL_DIR=$HOME/.shell_tweaks
+DIRECTORIES="lib plugins other"
+BASHRC_LINE="[[ -f $INSTALL_DIR/shell_tweaks ]] && . $INSTALL_DIR/shell_tweaks"
 
 log_message() {
 	echo ":: $1"
@@ -22,18 +22,39 @@ log_message() {
 
 case "$1" in
       install)
-        echo ""
-        log_message "Bashelicious install complete!"
-        log_message "Restart your terminal or source your .bashrc file to load bashelicious"
-        echo ""
+        if [ ! -d "$INSTALL_DIR" ]
+        then
+            mkdir "$INSTALL_DIR"
+            cp shell_tweaks "$INSTALL_DIR/shell_tweaks"
+            for DIRECTORY in $DIRECTORIES
+            do
+              mkdir "$INSTALL_DIR"/"$DIRECTORY"
+              cp -ra "$DIRECTORY" "$INSTALL_DIR"/
+            done
+
+            ln -srf "$INSTALL_DIR/other/.nanorc" "$HOME/.nanorc"
+
+            LINE=$(grep -n "${BASHRC_LINE}" "$HOME"/.bashrc | awk -F':' '{print $1;}')
+            [[ -z $LINE ]] && echo "${BASHRC_LINE}" >> "$HOME"/.bashrc
+
+            echo ""
+            log_message "Shell Tweaks install complete!"
+            log_message "Restart your terminal or source your .bashrc file to load new Shell Tweaks"
+            echo ""
+        else
+          log_message "Shell Tweaks directory already exists (skipping)"
+        fi
         ;;
       uninstall)
-
         log_message "Uninstall the bash tweaks"
+        LINE=$(grep -n "${BASHRC_LINE}" $HOME/.bashrc | awk -F':' '{print $1;}')
+        [[ -n $LINE ]] && sed -i -e "${LINE}d" $HOME/.bashrc
+        unlink "$HOME/.nanorc" > /dev/null 2>&1
+        [[ -d $INSTALL_DIR ]] && rm -rf "$INSTALL_DIR"
         ;;
       reinstall)
-        ./$0 uninstall
-        ./$0 install
+        ./"$0" uninstall
+        ./"$0" install
         ;;
       *)
         echo $USAGE

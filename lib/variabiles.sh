@@ -1,17 +1,4 @@
-
-
-# The various escape codes that we can use to color our prompt.
-RED="\[\e[0;31m\]"
-YELLOW="\[\e[1;33m\]"
-GREEN="\[\e[0;32m\]"
-BLUE="\[\e[1;34m\]"
-LIGHT_RED="\[\e[1;31m\]"
-LIGHT_GREEN="\[\e[1;32m\]"
-WHITE="\[\e[1;37m\]"
-LIGHT_GRAY="\[\e[0;37m\]"
-
-FANCYX='\[\342\234\]\227'
-CHECKMARK='\[\342\234\]\223'
+#!/usr/bin/env bash
 
 export EDITOR="$(which nano)"
 
@@ -45,22 +32,4 @@ if [ -d ${PG_ZONE}/langs/nodejs ]; then
     export PATH=$PATH:${PG_ZONE}/langs/nodejs
 fi
 
-export GREP_COLOR='1;31'
-export LESS="-R"
-export LESSOPEN="| src-hilite-lesspipe.sh %s"
-export LESSHISTFILE=/dev/null
-export LESS_TERMCAP_mb=$'\E[01;32m'
-export LESS_TERMCAP_md=$'\E[01;32m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;37m'
 
-# bash history settings
-export HISTTIMEFORMAT="%m-%d-%Y %H:%M:%S "
-export HISTCONTROL=erasedups  # Ignore duplicate entries in history
-export HISTFILE=~/.histfile
-export HISTSIZE=10000         # Increases size of history
-export SAVEHIST=10000
-export HISTIGNORE="&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g:history"

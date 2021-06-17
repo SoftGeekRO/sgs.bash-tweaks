@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+export SHELLTWEAKS_DIR=$HOME/.shell_tweaks
+export CDPATH=$CDPATH:.:~
+
+function shell_tweaks__import() {
+	[[ -f "$1" ]] && . "$1" || echo ":: Shell Tweaks failed to import file $1" >&2
+}
+
+file_tmp=<(find "$SHELLTWEAKS_DIR/lib" -name '*.sh' -print0)
+while IFS= read -r -d '' libs_path
+do
+  shell_tweaks__import "$libs_path"
+done < "$file_tmp"
+
+unset -f shell_tweaks__import
+
+# Tell bash to execute this function just before displaying its prompt.
+PROMPT_COMMAND=set_bash_prompt

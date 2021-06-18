@@ -1,7 +1,7 @@
 #!/bin/bash
 
-neofetch_bin=$(which netfetch)
-sensors_bin=$(which sensors)
+neofetch_bin=$(command -v neofetch)
+sensors_bin=$(command -v sensors >/dev/null 2>&1)
 
 #System load
 LOAD1=$(cat /proc/loadavg | awk {'print $1'})
@@ -66,8 +66,8 @@ fi
 }
 
 if [ $(echo "$LOAD1 < $threshold" | bc ) -eq 1 ]; then
-  if [ "$neofetch_bin" = 0 ]; then
-    neofetch_bin
+  if [ -x "$neofetch_bin" ]; then
+    neofetch
   else
     sysinfo
   fi

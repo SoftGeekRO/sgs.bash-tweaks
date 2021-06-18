@@ -47,8 +47,6 @@ fi
 
   cpuname=$(cat /proc/cpuinfo | grep -m 1 "model name" | awk -F ": " '{print $2}')
 
-  # \033[0;34m+     \033[0;37mCPU usage \033[0;34m= \033[1;32m$cpuusage%
-
   echo -e "
   \033[0;34m+++++++++++++++++: \033[0;37mSystem Data\033[0;34m :+++++++++++++++++++++++++++++
   \033[0;34m+ \033[0;37mDate and Time \033[0;34m= \033[1;32m$(date)

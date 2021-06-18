@@ -44,6 +44,8 @@ case "$1" in
               ln -srf "$motd_path" /etc/update-motd.d/"$(basename "$motd_path")"
             done < "$motd_tmp"
 
+            source "$HOME"/.bashrc
+
             echo ""
             log_message "Shell Tweaks install complete!"
             log_message "Restart your terminal or source your .bashrc file to load new Shell Tweaks"
@@ -63,6 +65,9 @@ case "$1" in
         rm -rf /etc/update-motd.d/*
 
         [[ -d $INSTALL_DIR ]] && rm -rf "$INSTALL_DIR"
+
+        source "$HOME"/.bashrc
+
         ;;
       reinstall)
         ./"$0" uninstall

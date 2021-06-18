@@ -37,7 +37,7 @@ case "$1" in
             LINE=$(grep -n "${BASHRC_LINE}" "$HOME"/.bashrc | awk -F':' '{print $1;}')
             [[ -z $LINE ]] && echo "${BASHRC_LINE}" >> "$HOME"/.bashrc
 
-            motd_tmp=<(find "$INSTALL_DIR/other/motd" -print0)
+            motd_tmp=<(find "$INSTALL_DIR/other/motd/*" -print0)
             while IFS= read -r -d '' motd_path
             do
               ln -srf "$motd_path" /etc/update-motd.d/"$(basename "$motd_path")"

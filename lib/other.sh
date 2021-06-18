@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # bash completion settings
-bind "set completion-ignore-case on" # This ignores case in bash completion
-bind "set bell-style none" # Turn off bell
-bind "set show-all-if-ambiguous On" # Single tab completion
-bind Space:magic-space #auto expand ! variants upon space
+#bind "set completion-ignore-case on" # This ignores case in bash completion
+#bind "set bell-style none" # Turn off bell
+#bind "set show-all-if-ambiguous On" # Single tab completion
+#bind Space:magic-space #auto expand ! variants upon space
 
 # Check the window size after each command and, if necessary, update the values of LINES and COLUMNS
 shopt -s checkwinsize

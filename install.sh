@@ -44,7 +44,7 @@ case "$1" in
               ln -srf "$motd_path" /etc/update-motd.d/"$(basename "$motd_path")"
             done < "$motd_tmp"
 
-            source "$HOME"/.bashrc
+             source "$HOME"/.bashrc
 
             echo ""
             log_message "Shell Tweaks install complete!"

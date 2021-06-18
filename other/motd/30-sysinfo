@@ -24,7 +24,7 @@ function sysinfo() {
   SWAP=$(free -mh | grep "Swap" | awk '{print $2,"-",$3,"-",$4}')
   PSA=$(ps -Afl | wc -l)
 
-if [ "$sensors_bin" = 0 ]; then
+if [ -x "$sensors_bin" ]; then
     TEMPERATURE=$(sensors_bin | grep Core | awk {'print $3'} | xargs)
 fi
 

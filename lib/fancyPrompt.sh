@@ -21,7 +21,7 @@ function set_git_branch() {
   elif [[ ${git_status} =~ "Changes to be committed" ]]; then
     state="${BYellow}"
   else
-    state="${Red}"
+    state="${LGreen}"
   fi
 
   # Set arrow icon based on status against remote.
@@ -53,13 +53,13 @@ function set_git_branch() {
 
   # Set the final branch string.
   #  echo "bran ${branch}"
-  BRANCH=":${LGreen}${state}(${branch})${remote}${Color_Off}"
+  BRANCH=":${state}(${branch})${remote}${Color_Off}"
 }
 
 # Return the prompt symbol to use, colorized based on the return value of the
 # previous command.
 function set_prompt_symbol() {
-  if test $1 -eq 0; then
+  if test "$1" -eq 0; then
     PROMPT_SYMBOL="${Green}\\\$${Color_Off} "
   else
     PROMPT_SYMBOL="${Red}\\\$${Color_Off} "
@@ -71,7 +71,7 @@ function set_virtualenv() {
   if test -z "$VIRTUAL_ENV"; then
     PYTHON_VIRTUALENV=""
   else
-    PYTHON_VIRTUALENV=":${LBlue}[$(basename \"$VIRTUAL_ENV\")]${Color_Off}"
+    PYTHON_VIRTUALENV=":${LBlue}[$(basename "${VIRTUAL_ENV}")]${Color_Off}"
   fi
 }
 
@@ -97,7 +97,7 @@ function set_bash_prompt() {
   if [[ $last_command == 0 ]]; then
     PS1+="${Green}${CHECKMARK} "
   else
-    PS1+="${Red}${FANCYX} "
+    PS1+="${BRed}${FANCYX} "
   fi
   if [[ $EUID == 0 ]]; then
     USER_COLOR="${Red}\\u@\\h${Color_Off}"
@@ -105,5 +105,5 @@ function set_bash_prompt() {
     USER_COLOR="${Green}\\u@\\h${Color_Off}"
   fi
 
-  PS1+="${PYTHON_VIRTUALENV}${USER_COLOR}:\w${BRANCH} ${PROMPT_SYMBOL}"
+  PS1+="${PYTHON_VIRTUALENV}${USER_COLOR}:\w${BRANCH}${PROMPT_SYMBOL}"
 }

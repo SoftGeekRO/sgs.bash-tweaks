@@ -37,6 +37,12 @@ case "$1" in
             LINE=$(grep -n "${BASHRC_LINE}" "$HOME"/.bashrc | awk -F':' '{print $1;}')
             [[ -z $LINE ]] && echo "${BASHRC_LINE}" >> "$HOME"/.bashrc
 
+            motd_tmp=<(find "$INSTALL_DIR/other/motd" -name '*.sh' -print0)
+            while IFS= read -r -d '' motd_path
+            do
+              ln -srf "$motd_path" /etc/update-motd.d/"$(basename "$motd_path")"
+            done < "$motd_tmp"
+
             echo ""
             log_message "Shell Tweaks install complete!"
             log_message "Restart your terminal or source your .bashrc file to load new Shell Tweaks"
@@ -47,9 +53,14 @@ case "$1" in
         ;;
       uninstall)
         log_message "Uninstall the bash tweaks"
+
         LINE=$(grep -n "${BASHRC_LINE}" $HOME/.bashrc | awk -F':' '{print $1;}')
         [[ -n $LINE ]] && sed -i -e "${LINE}d" $HOME/.bashrc
+
         unlink "$HOME/.nanorc" > /dev/null 2>&1
+
+        rm -rf /etc/update-motd.d/*.sh
+
         [[ -d $INSTALL_DIR ]] && rm -rf "$INSTALL_DIR"
         ;;
       reinstall)

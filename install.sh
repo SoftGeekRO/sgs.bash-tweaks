@@ -59,7 +59,7 @@ case "$1" in
 
         unlink "$HOME/.nanorc" > /dev/null 2>&1
 
-        rm -rf /etc/update-motd.d/*.sh
+        rm -rf /etc/update-motd.d/*
 
         [[ -d $INSTALL_DIR ]] && rm -rf "$INSTALL_DIR"
         ;;

@@ -40,6 +40,7 @@ case "$1" in
             motd_tmp=<(find "$INSTALL_DIR/other/motd/*" -print0)
             while IFS= read -r -d '' motd_path
             do
+              chmod +x "$motd_path"
               ln -srf "$motd_path" /etc/update-motd.d/"$(basename "$motd_path")"
             done < "$motd_tmp"
 

@@ -2,9 +2,6 @@
 
 # Alias's to modified commands
 
-alias cp='cp -i'
-alias mv='mv -i'
-alias rm='rm -iv'
 alias mkdir='mkdir -p'
 # sort by cpu usage
 alias top='top -o %CPU'

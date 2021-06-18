@@ -10,7 +10,7 @@ fi
 figlet_bin=$(which figlet)
 
 if [ "$figlet_bin" = 0 ]; then
-  figlet $(hostname)
+  figlet "$(hostname)"
 else
   printf "\n"
   printf "Welcome to %s (%s).\n" "$DISTRIB_DESCRIPTION" "$(uname -r)"

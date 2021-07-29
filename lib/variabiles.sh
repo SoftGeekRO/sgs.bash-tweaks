@@ -5,13 +5,12 @@ export EDITOR="$(which nano)"
 #export PATH=$HOME/.local/bin:$HOME/.rbenv/bin:$HOME/bin:$HOME/.gem/ruby/1.8/bin:/usr/local/git/bin:/Applications/Emacs.app/Contents/MacOS/bin:/usr/share/source-highlight:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/Applications/Postgres.app/Contents/Versions/9.4/bin:/usr/games/:/usr/lib/go-1.6/bin
 export INFOPATH=$INFOPATH:/usr/share/info
 
-if [ -d /opt/pg.zone ]; then
-    export PG_ZONE=/opt/pg.zone
-    export PG_ZONE_APPS=${PG_ZONE}/apps
-    export PG_ZONE_LOG=${PG_ZONE}/logs
-    export PG_ZONE_DB=${PG_ZONE}/dbs
-    export PG_ZONE_DB_DATA=${PG_ZONE}/data
-fi
+export WORK_ZONE_PATH=/opt/workzone
+export WORK_ZONE_APPS=${WORK_ZONE_PATH}/apps
+export WORK_ZONE_LOG=${WORK_ZONE_PATH}/logs
+export WORK_ZONE_DB=${WORK_ZONE_PATH}/dbs
+export WORK_ZONE_DB_DATA=${WORK_ZONE_PATH}/data
+
 
 # EXPORT GO LANG PATH
 if [ -d ${PG_ZONE}/go ]; then

@@ -91,16 +91,6 @@ esac
 #    source /etc/profile.d/bash_completion.sh
 #fi
 #
-#if [ -d ~/pg.bash-toys ]; then
-#    . ~/pg.bash-toys/aliases
-#    . ~/pg.bash-toys/variabiles
-#    . ~/pg.bash-toys/functions
-#    . ~/pg.bash-toys/fancyPrompt
-#fi
-#
-## Tell bash to execute this function just before displaying its prompt.
-#PROMPT_COMMAND=set_bash_prompt
-#
 #if [ -x "$(which virtualenv)" ]; then
 #    export VIRTUALENVWRAPPER_PYTHON=$(which python)
 #    export VIRTUALENVWRAPPER_VIRTUALENV=$(which virtualenv)

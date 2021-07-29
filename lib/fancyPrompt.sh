@@ -71,7 +71,7 @@ function set_virtualenv() {
   if test -z "$VIRTUAL_ENV"; then
     PYTHON_VIRTUALENV=""
   else
-    PYTHON_VIRTUALENV="${LBlue}[$(basename "${VIRTUAL_ENV}")]|${Color_Off}"
+    PYTHON_VIRTUALENV="${LBlue}[$(basename "${VIRTUAL_ENV}")]${Color_Off}"
   fi
 }
 

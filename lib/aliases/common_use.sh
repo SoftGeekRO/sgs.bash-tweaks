@@ -26,6 +26,7 @@ alias vis='vim "+set si"'
 alias wget='wget -c -t 0 --timeout=20 --waitretry=20'
 
 # Go directly to root folder
+alias cd="venv_cd"
 alias home='cd ~'
 alias cd..='cd ..'
 # Go up one directory

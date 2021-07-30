@@ -128,7 +128,7 @@ function workon_cwd {
         if [ "$VIRTUAL_ENV" != "$WORKON_HOME/$ENV_NAME" ]; then
             if [ -e "$WORKON_HOME/$ENV_NAME/bin/activate" ]; then
               echo "Activated virtualenv ${ENV_NAME}."
-              workon "${ENV_NAME}" && export CD_VIRTUAL_ENV="$ENV_NAME"
+              workon "${ENV_NAME}" && export CD_VIRTUAL_ENV="${ENV_NAME}"
             fi
         fi
     elif [ "${CD_VIRTUAL_ENV}" ]; then

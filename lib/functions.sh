@@ -134,6 +134,7 @@ function workon_cwd {
     elif [ "${CD_VIRTUAL_ENV}" ]; then
         # We've just left the repo, deactivate the environment
         # Note: this only happens if the virtualenv was activated automatically
+        echo Deactivate virtualenv "${ENV_NAME}".
         deactivate && unset CD_VIRTUAL_ENV
     fi
 }

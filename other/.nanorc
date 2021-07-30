@@ -81,7 +81,12 @@ set morespace
 ## mouse clicks can be used to place the cursor, set the mark (with a
 ## double click), and execute shortcuts.  The mouse will work in the X
 ## Window System, and on the console when gpm is running.
-set mouse
+## set the unset mouse for:
+##  Pasting clipboard contents into Nano requires a regular right click (or shift+insert).
+##  You can mark blocks of text in Nano only with the keyboard using Alt + A followed by the arrow keys.
+##  These can be copied to the buffer with Ctrl + K.
+##  You can select text with the mouse to copy it to the Clipboard (a PuTTY function).
+unset mouse
 
 ## Switch on multiple file buffers (inserting a file will put it into
 ## a separate buffer).

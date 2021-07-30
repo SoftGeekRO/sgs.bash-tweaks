@@ -87,3 +87,6 @@ alias 644='chmod -R 644'
 alias 666='chmod -R 666'
 alias 755='chmod -R 755'
 alias 777='chmod -R 777'
+
+# tmux settings
+alias tmux='TERM=xterm-256color \tmux'

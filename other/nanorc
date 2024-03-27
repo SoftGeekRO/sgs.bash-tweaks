@@ -1,19 +1,8 @@
-## Sample initialization file for GNU nano.
-##
-## Please note that you must have configured nano with --enable-nanorc
-## for this file to be read!  Also note that this file should not be in
-## DOS or Mac format, and that characters specially interpreted by the
-## shell should not be escaped here.
-##
-## To make sure an option is disabled, use "unset <option>".
-##
-## For the options that take parameters, the default value is given.
-## Other options are unset by default.
-##
-## Quotes inside string parameters don't have to be escaped with
-## backslashes.  The last double quote in the string will be treated as
-## its end.  For example, for the "brackets" option, ""')>]}" will match
-## ", ', ), >, ], and }.
+###
+# SoftGeek Romania
+# This version of nanorc is part of the sgs.bash-tweak repository
+# https://github.com/SoftGeekRO/sgs.bash-tweaks.git
+###
 
 ## Make the 'nextword' function (Ctrl+Right) stop at word ends
 ## instead of at beginnings.
@@ -40,7 +29,7 @@
 ## The characters treated as closing brackets when justifying paragraphs.
 ## This may not include any blank characters.  Only closing punctuation,
 ## optionally followed by these closing brackets, can end sentences.
-# set brackets ""')>]}"
+set brackets ""')>]}"
 
 ## Do case-sensitive searches by default.
 # set casesensitive
@@ -72,10 +61,7 @@ set locking
 ## The opening and closing brackets that can be found by bracket
 ## searches.  They cannot contain blank characters.  The former set must
 ## come before the latter set, and both must be in the same order.
-# set matchbrackets "(<[{)>]}"
-
-## Use the blank line below the title bar as extra editing space.
-set morespace
+set matchbrackets "(<[{)>]}"
 
 ## Enable mouse support, if available for your system.  When enabled,
 ## mouse clicks can be used to place the cursor, set the mark (with a
@@ -86,7 +72,7 @@ set morespace
 ##  You can mark blocks of text in Nano only with the keyboard using Alt + A followed by the arrow keys.
 ##  These can be copied to the buffer with Ctrl + K.
 ##  You can select text with the mouse to copy it to the Clipboard (a PuTTY function).
-unset mouse
+set mouse
 
 ## Switch on multiple file buffers (inserting a file will put it into
 ## a separate buffer).
@@ -100,10 +86,6 @@ unset mouse
 
 ## Don't automatically add a newline when a file does not end with one.
 set nonewlines
-
-## Don't pause between warnings at startup.  Which means that only the
-## last one will be readable (when there are multiple ones).
-# set nopauses
 
 ## Don't wrap text at all.
 set nowrap
@@ -132,7 +114,7 @@ set positionlog
 
 ## The email-quote string, used to justify email-quoted paragraphs.
 ## This is an extended regular expression.  The default is:
-# set quotestr "^([ 	]*([#:>|}]|//))+"
+set quotestr "^([ 	]*([#:>|}]|//))+"
 
 ## Fix Backspace/Delete confusion problem.
 # set rebinddelete
@@ -153,9 +135,6 @@ set showcursor
 ## cursor is already at that position, it will jump to the true
 ## beginning of the line.
 set smarthome
-
-## Use smooth scrolling as the default.
-set smooth
 
 ## Enable soft line wrapping (AKA full-line display).
 # set softwrap
@@ -200,7 +179,6 @@ set suspend
 ## set, it overrides option 'set wordbounds'.
 # set wordchars "<_>."
 
-
 ## Paint the interface elements of nano.  These are examples;
 ## by default there are no colors, except for errorcolor.
 #set titlecolor brightwhite,blue
@@ -218,7 +196,6 @@ set selectedcolor brightwhite,cyan
 set numbercolor brightcyan
 set keycolor brightmagenta
 set functioncolor green
-
 
 ## Setup of syntax coloring.
 ##
@@ -262,7 +239,8 @@ set functioncolor green
 ## them easier to remember and faster to type using nano's -Y option.
 ##
 ## To include all existing syntax definitions, you can do:
-include "/root/.shell_tweaks/other/nano/*.nanorc"
+include "/usr/share/sgs/sgs.bash-tweaks/other/nano/*.nanorc"
+include "/usr/share/nano/*.nanorc"
 
 
 ## Key bindings.

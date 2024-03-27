@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-lscolor_data_dir="$HOME/.shell_tweaks/other"
+lscolor_data_dir="/usr/share/sgs/sgs.bash-tweaks/other"
 
 ######################
 ##  COMMAND PROMPT ###
@@ -11,7 +11,7 @@ PROMPT_COMMAND='history -a'
 ##  LESS ENVS ###
 #################
 # Color for manpages in less makes manpages a little easier to read
-export LESSOPEN="| $HOME/.shell_tweaks/plugins/src-hilite-lesspipe.sh %s"
+export LESSOPEN="| /usr/share/sgs/sgs.bash-tweaks/plugins/src-hilite-lesspipe.sh %s"
 export LESS="-R"
 
 export LESSHISTFILE=/dev/null

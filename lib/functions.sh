@@ -1,7 +1,5 @@
 #!/bin/bash
 
-## Functions
-
 add_auth_key () {
     ssh-copy-id "$@"
 }
@@ -28,7 +26,7 @@ extract () {
 }
 
 dls () {
- # dls will list directories instead of files in the current working directory. 
+ # dls will list directories instead of files in the current working directory.
  echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`
 }
 
@@ -59,7 +57,7 @@ killit() {
 }
 
 # make a dir and cd into it
-mkcd () {  
+mkcd () {
     mkdir -p "$@" && cd "$@" || exit
 }
 

@@ -1,83 +1,127 @@
 #!/bin/bash
 
-#############################
-# ProGeek bash tweaks setup #
-#############################
-
+######################################
+# SoftGeek Romania bash tweaks setup #
+######################################
 trap 'cleanup; exit 1' HUP INT QUIT TERM
 
-PWD="$(dirname "$(readlink -f "$0")")"
+E_NOTROOT=87 # Non-root exit error.
 
-BASENAME=$(basename "$0")
-USAGE="Usage: $BASENAME {install | uninstall | reinstall}"
+WORKING_DIR="$(dirname "$(readlink -f "$0")")"
+BASENAME=$(basename $(pwd))
+SCRIPT_NAME=$(basename "$0")
 
-INSTALL_DIR=$HOME/.shell_tweaks
-DIRECTORIES="lib plugins other"
-BASHRC_LINE="[[ -f $INSTALL_DIR/shell_tweaks ]] && . $INSTALL_DIR/shell_tweaks"
+USAGE="Usage: $SCRIPT_NAME {install | uninstall | reinstall}"
 
-log_message() {
-	echo ":: $1"
+INSTALL_PATH="/usr/share/sgs/"
+INSTALL_DIR="${INSTALL_PATH}${BASENAME}"
+BASHRC_PATCH="[[ -f $INSTALL_DIR/bash-tweaks.sh ]] && . $INSTALL_DIR/bash-tweaks.sh"
+
+# Fancy red-colored `error` function with `stderr` redirection with `exit`.
+error () {
+    { printf '\E[31m'; echo ":: $@"; printf '\E[0m'; } >&2
+}
+
+info() {
+  { printf '\E[32m'; echo ":: $1"; printf '\E[0m'; } >&2
+}
+
+notice() {
+  { printf '\E[33m'; echo ":: $1"; printf '\E[0m'; } >&2
 }
 
 
+if [ "$(id -u)" -ne 0 ]; then error "Please run as root." >&2; exit $E_NOTROOT; fi
+
 case "$1" in
-      install)
-        if [ ! -d "$INSTALL_DIR" ]
-        then
-            mkdir "$INSTALL_DIR"
-            cp shell_tweaks "$INSTALL_DIR/shell_tweaks"
-            for DIRECTORY in $DIRECTORIES
-            do
-              mkdir "$INSTALL_DIR"/"$DIRECTORY"
-              cp -ra "$DIRECTORY" "$INSTALL_DIR"/
-            done
+  install)
+    info "Install sgs.bash-tweaks on $INSTALL_DIR"
+    if [ -d "$INSTALL_DIR" ]; then
+      echo "Already install. Try reinstall command"
+      exit 0
+    fi
 
-            ln -srf "$INSTALL_DIR/other/.nanorc" "$HOME/.nanorc"
+    mkdir -p "$INSTALL_DIR"
+    cp -r "${WORKING_DIR}/" "$INSTALL_PATH"
 
-            LINE=$(grep -n "${BASHRC_LINE}" "$HOME"/.bashrc | awk -F':' '{print $1;}')
-            [[ -z $LINE ]] && echo "${BASHRC_LINE}" >> "$HOME"/.bashrc
+    if [[ -f /etc/nanorc ]]; then
+      mv /etc/nanorc /etc/nanorc.old
+      notice "Rename default *nanorc* to nanorc.old"
+      ln -srf "${INSTALL_DIR}/other/nanorc" "/etc/nanorc"
+      notice "Create shortcut for *nanorc* tweaks"
+    fi
 
-            motd_tmp=<(find "$INSTALL_DIR/other/motd/" -type f -name "*" -print0)
-            while IFS= read -r -d '' motd_path
-            do
-              chmod +x "$motd_path"
-              ln -srf "$motd_path" /etc/update-motd.d/"$(basename "$motd_path")"
-            done < "$motd_tmp"
+    for _profile in /home/*/.bashrc; do
+      LINE=$(grep -n "${BASHRC_PATCH}" "$_profile" | awk -F':' '{print $1;}')
+      if [[ -z $LINE ]]; then
+        echo "${BASHRC_PATCH}" >> "$_profile"
+        notice "PATCH *.bashrc* on $_profile"
+      else
+        error "The patch for *.bashrc* not present"
+      fi
+    done
 
-             source "$HOME"/.bashrc
+    # special patch for root .bashrc file
+    ROOT_LINE=$(grep -n "${BASHRC_PATCH}" "/root/.bashrc" | awk -F':' '{print $1;}')
+    if [[ -z $ROOT_LINE ]]; then
+      echo "${BASHRC_PATCH}" >> "/root/.bashrc"
+      notice "SPECIAL PATCH FOR ROOT *.bashrc* on $_profile"
+    else
+      error "PATCH FOR ROOT *.bashrc* is present"
+    fi
 
-            echo ""
-            log_message "Shell Tweaks install complete!"
-            log_message "Restart your terminal or source your .bashrc file to load new Shell Tweaks"
-            echo ""
-        else
-          log_message "Shell Tweaks directory already exists (skipping)"
-        fi
-        ;;
-      uninstall)
-        log_message "Uninstall the bash tweaks"
+    source "$HOME"/.bashrc
 
-        LINE=$(grep -n "${BASHRC_LINE}" $HOME/.bashrc | awk -F':' '{print $1;}')
-        [[ -n $LINE ]] && sed -i -e "${LINE}d" $HOME/.bashrc
+    info "Shell Tweaks install complete!"
+    info "Restart your terminal or source your .bashrc file to load new Shell Tweaks"
+    ;;
+  uninstall)
+    info "Uninstall the bash tweaks"
 
-        unlink "$HOME/.nanorc" > /dev/null 2>&1
+    if [[ -f /etc/nanorc ]] && [[ -f /etc/nanorc.old ]]; then
+      rm "/etc/nanorc"
+      mv /etc/nanorc.old /etc/nanorc
+      notice "Remove *nanorc* shortcut and restore default file"
+    fi
 
-        rm -rf /etc/update-motd.d/*
+    for _profile in /home/*/.bashrc; do
+      LINE=$(grep -n "${BASHRC_PATCH}" "$_profile" | awk -F':' '{print $1;}')
+      if [[ -n $LINE ]]; then
+        sed -i -e "${LINE}d" "$_profile"
+        notice "RESTORE PATCH *.bashrc* on $_profile"
+      else
+        error "No patch to remove from $_profile"
+      fi
+    done
 
-        [[ -d $INSTALL_DIR ]] && rm -rf "$INSTALL_DIR"
+    # REMOVE special patch for root .bashrc file
+    ROOT_LINE=$(grep -n "${BASHRC_PATCH}" "/root/.bashrc" | awk -F':' '{print $1;}')
+    if [[ -n $ROOT_LINE ]]; then
+      sed -i -e "${ROOT_LINE}d" "/root/.bashrc"
+      notice "REMOVE SPECIAL PATCH FOR ROOT *.bashrc* on $_profile"
+    else
+      error "REMOVE PATCH FOR ROOT *.bashrc* not present"
+    fi
 
-        source "$HOME"/.bashrc
+    if [[ -f /etc/profile.d/bash-tweaks.sh ]]; then
+      rm "/etc/profile.d/bash-tweaks.sh"
+      notice "Remove *bash-tweaks.sh file"
+    fi
 
-        ;;
-      reinstall)
-        ./"$0" uninstall
-        ./"$0" install
-        ;;
-      *)
-        echo $USAGE
-        exit 1
-        ;;
+    [[ -d "$INSTALL_DIR" ]] && rm -rf "$INSTALL_DIR"
 
+#   rm -rf /etc/update-motd.d/*
+
+    source "$HOME"/.bashrc
+    ;;
+  reinstall)
+    ./"$0" uninstall
+    ./"$0" install
+  ;;
+  *)
+    echo $USAGE
+    exit 1
+    ;;
 esac
 
 ## enable programmable completion features (you don't need to enable

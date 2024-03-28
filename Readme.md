@@ -21,7 +21,7 @@ cd sgs.bash-tweaks
 sudo ./install.sh install
 
 ```
-The installation will crate a *sgs/sgs.bash-tweaks* folder inside the */user/share/* folder.
+The installation will create a *sgs/sgs.bash-tweaks* folder inside the */user/share/* folder.
 The **sgs** folder is used to keep all the SoftGeek applications contain in a single folder.
 
 ### general_purpose

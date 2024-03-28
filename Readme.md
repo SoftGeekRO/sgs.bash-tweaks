@@ -6,10 +6,23 @@ An `alias` means as the name suggests, we call something instead of something el
 
 # Contents :
 
+- [Instalation](#-installation)
 - [General purpose aliases](#general_purpose)
 - [git cli aliases](#git_cli_aliases)
 - [programming snippets](#programming_snippets)
 - [Competitive Programming snippets](#CP_snippets)
+
+### 🔧 Installation
+The installation is very simple. 
+```bash
+git clone https://github.com/SoftGeekRO/sgs.bash-tweaks.git
+cd sgs.bash-tweaks
+
+sudo ./install.sh install
+
+```
+The installation will crate a *sgs/sgs.bash-tweaks* folder inside the */user/share/* folder.
+The **sgs** folder is used to keep all the SoftGeek applications contain in a single folder.
 
 ### general_purpose
 

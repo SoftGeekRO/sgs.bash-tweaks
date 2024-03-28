@@ -33,6 +33,7 @@ alias off="sudo shutdown now"
 alias ss="sudo shutdown -r now"
 alias sf="sudo shutdown -r -n now"
 ```
+More alias and commands are available inside the lib files.
 
 ### 🌍 Contributions
 
@@ -47,3 +48,4 @@ This Ansible role is licensed under the GNU General Public License, version 3 (G
 **Zaharia Constantin**
 
 [View my GitHub profile 💡](https://github.com/soulraven)
+[SoftGeek Company Profile](https://github.com/SoftGeekRO)

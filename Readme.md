@@ -48,4 +48,5 @@ This Ansible role is licensed under the GNU General Public License, version 3 (G
 **Zaharia Constantin**
 
 [View my GitHub profile 💡](https://github.com/soulraven)
+
 [SoftGeek Company Profile](https://github.com/SoftGeekRO)

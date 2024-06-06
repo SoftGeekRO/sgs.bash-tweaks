@@ -8,9 +8,6 @@ An `alias` means as the name suggests, we call something instead of something el
 
 - [Instalation](#-installation)
 - [General purpose aliases](#general_purpose)
-- [git cli aliases](#git_cli_aliases)
-- [programming snippets](#programming_snippets)
-- [Competitive Programming snippets](#CP_snippets)
 
 ### 🔧 Installation
 The installation is very simple. 
@@ -41,7 +38,7 @@ alias .....='cd ../../../..'
 ```
 
 ```shell
-# shoutdown aliases
+# shutdown aliases
 alias off="sudo shutdown now"
 alias ss="sudo shutdown -r now"
 alias sf="sudo shutdown -r -n now"

@@ -30,7 +30,6 @@ notice() {
   { printf '\E[33m'; echo ":: $1"; printf '\E[0m'; } >&2
 }
 
-
 if [ "$(id -u)" -ne 0 ]; then error "Please run as root." >&2; exit $E_NOTROOT; fi
 
 case "$1" in
@@ -110,7 +109,6 @@ case "$1" in
 
     [[ -d "$INSTALL_DIR" ]] && rm -rf "$INSTALL_DIR"
 
-#   rm -rf /etc/update-motd.d/*
 
     source "$HOME"/.bashrc
     ;;
